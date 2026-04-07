@@ -1,4 +1,12 @@
 __pycache__/
-archive/
+archive/*.csv
 *.csv
 .DS_Store
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.pyc
+*.pyd
+venv/
+env/
+.env
