@@ -8,5 +8,6 @@ archive/*.csv
 *.pyc
 *.pyd
 venv/
+.venv/
 env/
 .env
