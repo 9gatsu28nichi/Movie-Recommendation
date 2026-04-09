@@ -80,6 +80,7 @@ python install_data.py
 ```bash
 # This will open CineMatch in your default web browser
 streamlit run app.py
+# This will open CineMatch in .env your default web browser
 .venv\Scripts\streamlit.exe run app.py
 ```
 
