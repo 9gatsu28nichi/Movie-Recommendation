@@ -90,9 +90,9 @@ The CineMatch AI engine is designed to **use your GPU (CUDA) automatically** if 
 To fix this and force hardware acceleration (NVIDIA GPUs only), run the following commands in your virtual environment:
 ```bash
 pip uninstall torch torchvision torchaudio -y
-pip install -r requirements.txt
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
-*(Our `requirements.txt` specifically targets the CUDA 12.1 enabled binaries).*
+*(This command forces pip to download the CUDA 12.1 enabled binaries instead of defaulting to the CPU versions from PyPI).*
 
 ---
 
