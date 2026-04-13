@@ -11,5 +11,3 @@ venv/
 .venv/
 env/
 .env
-
-models/
