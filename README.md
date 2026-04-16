@@ -66,15 +66,13 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Initialize the Dataset & AI Models
-CineMatch requires both the movie database and the high-dimensional AI model files. We provide an automated installation and health-check script:
+### 4. Initialize the Dataset
+The project utilizes the **TMDB-IMDB Merged Dataset**. We provide an automated installation script:
 ```bash
 python install_data.py
 ```
 > [!TIP]
-> This script does two critical tasks:
-> 1. Uses `kagglehub` to securely download the 270MB+ movie dataset into `archive/`.
-> 2. **Health Check**: Verifies that your AI model files (`models/`) are correctly downloaded via Git LFS. If it detects "pointer" files, it will attempt to hydrate them automatically.
+> This script uses `kagglehub` to securely download and verify the 100MB+ dataset into the `archive/` folder.
 
 ### 5. Launch the Platform
 ```bash
@@ -84,24 +82,15 @@ streamlit run app.py
 .venv\Scripts\streamlit.exe run app.py
 ```
 
-### 🔧 Troubleshooting
+### 🔧 Troubleshooting: AI Engine Initializing on CPU
+The CineMatch AI engine is designed to **use your GPU (CUDA) automatically** if available. If the application states it is loading the engine on the CPU, PyTorch could not detect a compatible GPU setup. This typically happens if the standard CPU version of PyTorch was installed, or if your Python version lacks pre-compiled GPU binaries.
 
-#### 1. AI Engine Initializing on CPU
-The CineMatch AI engine is designed to **use your GPU (CUDA) automatically** if available. If the application states it is loading the engine on the CPU, PyTorch could not detect a compatible GPU setup.
-
-To fix this and force hardware acceleration (NVIDIA GPUs only):
+To fix this and force hardware acceleration (NVIDIA GPUs only), run the following commands in your virtual environment:
 ```bash
 pip uninstall torch torchvision torchaudio -y
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
 ```
-
-#### 2. Redundant AI Training / Missing Models
-If the application spends a long time "Encoding movies" even though the `models/` folder exists, you likely have **Git LFS pointers** instead of actual model binaries.
-
-**Solution:**
-1. Install [Git LFS](https://git-lfs.github.com/).
-2. Run `git lfs pull` in the project root.
-3. Run `python install_data.py` to verify the fix.
+*(This command forces pip to download the CUDA 12.1 enabled binaries instead of defaulting to the CPU versions from PyPI).*
 
 ---
 
