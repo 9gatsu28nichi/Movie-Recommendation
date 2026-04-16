@@ -1,112 +1,113 @@
-# 🎬 CineMatch 2.0: AI-Powered Movie Discovery Platform
+# 🎬 CineMatch 2.0: The Cinematic Oracle
+<ctrl94>thought
+I'll write the full content now.<ctrl95># 🎬 CineMatch 2.0: The Cinematic Oracle
 
 > **ITCS227: Introduction to Data Science & Artificial Intelligence**
-> A production-grade streaming-style application delivering weighted statistical rankings, NLP semantic "vibe" search, and interactive 3D cinematic relationship mapping.
+> A production-grade movie discovery platform featuring GPU-accelerated semantic search, 3D cinematic mapping, and complex hybrid recommendation logic.
 
-CineMatch 2.0 is an advanced content-based recommendation engine built with **Streamlit** and **Python**. It features a state-of-the-art AI core that transcends simple keyword matching to understand the "vibe" of cinema through high-dimensional embeddings and interactive network analysis.
+![CineMatch Platform Showcase](https://img.shields.io/badge/Status-Production--Ready-success?style=for-the-badge&logo=powerbi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11+-blue?style=for-the-badge&logo=python&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-CUDA--Accelerated-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+![Streamlit](https://img.shields.io/badge/UI-Streamlit--Glassmorphism-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 
----
-
-## 🚀 Key Features (CineMatch Oracle Edition)
-
-### 🧠 CineMatch Oracle 🔮
-- **Intent-Based Discovery**: The engine now understands the "Soul" of your search. It detects if you want **Visual Style** (Neon, Noir), **Emotional Impact** (Heartbreaking, Happy), or **Narrative Complexity** (Twists, Plot).
-- **Synonym Intelligence**: Integrated **NLTK WordNet** to expand queries. Searching for "Astronaut" automatically discovers "Space," "Galaxy," and "NASA" connections.
-
-### ⚡ Mood Fusion Engine
-- **Thematic Overlaps**: Finds movies that sit at the intersection of multiple vibes (e.g., *"Beautiful [Visual] but Sad [Emotional]"*).
-- **Fusion Scoring**: Prioritizes "Resonance" matches where every part of a complex query is satisfied.
-
-### 💎 Hidden Gem Radar
-- **Critic's Darlings**: Automatically surfaces highly-rated independent films (>8.0 IMDB) with lower vote counts that might otherwise be buried by blockbusters.
-- **Fair Discovery**: Implements **Short-Overview Hydration** to ensure indie films with brief descriptions have a strong "Vibe Signal."
-
-### 🏗️ Global Quality Priority
-- **Strict IMDB Ranking**: All semantic matches are globally sorted from highest to lowest quality. Page 1 always contains the "Best of the Best."
-- **Unlimited Scanning**: The search engine now scans the entire **436k movie dataset** without retrieval caps.
-
-### 🕸️ 3D Cinematic Discovery Explorer
-- Interactive **Plotly 3D Network Graph** visualizing relationships between 436,000+ movies.
+CineMatch 2.0 is an advanced discovery engine that transcends simple keyword matching. By utilizing high-dimensional embeddings and a custom **Hybrid Scoring Engine**, it understands the "Soul" and "Vibe" of over **436,000 movies** to deliver near-perfect recommendations.
 
 ---
 
-## 🔬 Technical Research Record
+## 📂 Project Architecture
 
-The project includes a comprehensive **[MovieRecommendation.ipynb](MovieRecommendation.ipynb)** notebook. This is not just a draft, but a **Professional Technical Report** structured into 6 modules:
-1. **Executive Summary**: Project abstract and problem statement.
-2. **Data Engineering**: "The Soup" generation and feature engineering.
-3. **Exploratory Data Analysis (EDA)**: Cinematic trend visualizations and correlation matrices.
-4. **CineMatch 2.0 AI Core**: Full mathematical documentation of the algorithms.
-5. **Model Validation**: Technical metrics, confusion matrices, and logic assessment.
-6. **Final Conclusion**: Research findings and future roadmap.
+```mermaid
+graph TD
+    subgraph Data_Layer [Data Engineering]
+        K[Kaggle Dataset] -->|install_data.py| R[Raw Data Folder]
+        R -->|Preprocessing| S[Metadata Soup]
+    end
+
+    subgraph AI_Core [CineMatch Oracle Engine]
+        S -->|all-MiniLM-L6-v2| E[GPU-Accelerated Vectorization]
+        E -->|Persistence| M[Saved Models/Embeddings]
+    end
+
+    subgraph Web_UI [Platform Interface]
+        M -->|app.py| U[Streamlit Visual Layout]
+        U -->|Query| Q[Hybrid Search Engine]
+        Q -->|Hybrid Ranking| D[3D Network Graph & List Results]
+    end
+```
 
 ---
 
-## 📦 Installation & Quick Start
+## 🧠 The AI Core: How it Works
 
-Follow these steps to set up the environment and launch the CineMatch platform:
+CineMatch 2.0 uses a specialized **Metadata Soup** (Title + Overview + Genre + Keywords + Era Tags) to create a unique "fingerprint" for every film.
 
-### 1. Clone the repository
+### ⚡ Hybrid Scoring Engine
+Unlike standard search engines, CineMatch uses a **50/50 Hybrid Score**:
+1.  **Semantic Similarity (50%)**: Measured using Cosine Similarity of query embeddings against the 436k movie vectors.
+2.  **Weighted Statistical Quality (50%)**: Calculated using the IMDB weighted rating formula:
+    $$\text{Score} = \frac{v}{v+m}R + \frac{m}{v+m}C$$
+    *(Where $v$ is votes, $m$ is minimum votes, $R$ is average rating, and $C$ is the mean across all movies).*
+
+### 🔮 Oracle Features
+- **Mood Fusion Intent Parser**: Automatically detects if your query matches **Visual Styles** (Neon, Noir), **Emotional Impacts** (Heartbreaking), or **Narrative Complexity** (Twists) to adjust weights on the fly.
+- **Hidden Gem Radar**: Specifically surfaces independent films with high ratings but lower vote counts to prevent "Blockbuster Bias."
+- **3D discovery explorer**: An interactive Plotly map visualizing relationships between films in a 3D orbital space.
+
+---
+
+## 📦 Professional Setup & Launch
+
+The project has been organized into a standardized directory structure for production reliability.
+
+### 1. Initialize Environment
 ```bash
+# Clone and enter
 git clone https://github.com/9gatsu28nichi/Movie-Recommendation.git
 cd Movie-Recommendation
-```
 
-### 2. Create and Activate Virtual Environment (Recommended)
-```bash
+# Setup virtual environment
 python -m venv venv
-# On Windows:
+# Windows:
 .\venv\Scripts\activate
-# On Unix or MacOS:
+# MacOS/Linux:
 source venv/bin/activate
-```
 
-### 3. Install Dependencies
-```bash
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 4. Initialize the Dataset
-The project utilizes the **TMDB-IMDB Merged Dataset**. We provide an automated installation script:
+### 2. High-Signal Data Installation
+Our automated script hydrates the dataset directly from Kaggle into the project's logic core.
 ```bash
-python install_data.py
+python scripts/install_data.py
 ```
-> [!TIP]
-> This script uses `kagglehub` to securely download and verify the 100MB+ dataset into the `archive/` folder.
 
-### 5. Launch the Platform
+### 3. Launch the Platform
 ```bash
-# This will open CineMatch in your default web browser
-streamlit run app.py
+streamlit run src/app.py
 ```
+
 > [!IMPORTANT]
-> **First-Run AI Training**: Since large AI model files are ignored by Git to allow for custom builds, the first time you run the application, it will automatically encode the 436k+ movie fingerprints into a local `models/` folder.
-> - **With GPU**: Takes ~3-5 minutes.
-> - **With CPU**: Takes ~10-15 minutes.
->
-> Once initialized, subsequent launches will be near-instantaneous.
+> **GPU Hardware Acceleration**: CineMatch automatically detects **NVIDIA CUDA** drivers. If a GPU is found, the 10-minute "Vectorization" phase is shortened to ~3 minutes. This happens only on the first run.
 
-### 🔧 Troubleshooting: AI Engine Initializing on CPU
-The CineMatch AI engine is designed to **use your GPU (CUDA) automatically** if available. If the application states it is loading the engine on the CPU, PyTorch could not detect a compatible GPU setup. This typically happens if the standard CPU version of PyTorch was installed, or if your Python version lacks pre-compiled GPU binaries.
+---
 
-To fix this and force hardware acceleration (NVIDIA GPUs only), run the following commands in your virtual environment:
-```bash
-pip uninstall torch torchvision torchaudio -y
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-```
-*(This command forces pip to download the CUDA 12.1 enabled binaries instead of defaulting to the CPU versions from PyPI).*
+## 📂 Folder Structure
+
+| Directory | Purpose |
+| :--- | :--- |
+| **`data/`** | Raw and processed movie datasets (.csv) |
+| **`models/`** | Pre-trained embeddings and persistent AI states |
+| **`src/`** | The platform source code and custom CSS styling |
+| **`scripts/`** | Automation scripts for data fetching and maintenance |
+| **`notebooks/`**| Technical research reports and logic validation |
 
 ---
 
 ## 🛠️ Tech Stack
-- **UI/UX**: Streamlit, Vanilla CSS, Plotly.
-- **Core AI**: Sentence Transformers, Scikit-Learn.
-- **Data**: Pandas, Numpy, NLTK.
-- **Visualization**: Seaborn, Matplotlib.
-
-## 📚 References & Dataset
-- **Dataset**: [TMDB-IMDB Merged Movies Dataset - Kaggle](https://www.kaggle.com/datasets/ggtejas/tmdb-imdb-merged-movies-dataset)
-- **Course**: ITCS227: Introduction to Data Science, Faculty of ICT, Mahidol University.
+- **AI/ML**: Sentence-Transformers (BERT), Scikit-Learn, PyTorch.
+- **Frontend**: Streamlit, Custom Glassmorphism CSS, Plotly.
+- **Analytics**: Pandas, NumPy, NLTK (WordNet Expansion).
 
 ---
-*Created by Jirathiwat Sun for ITCS227.*
+*Developed by Jirathiwat Sun for ITCS227: Introduction to Data Science.*

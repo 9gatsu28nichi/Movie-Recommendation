@@ -1,5 +1,5 @@
 __pycache__/
-archive/*.csv
+data/
 *.csv
 .DS_Store
 .ipynb_checkpoints/
