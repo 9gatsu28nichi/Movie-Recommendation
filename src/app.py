@@ -1859,6 +1859,22 @@ def main():
         </div>
         """, unsafe_allow_html=True)
 
+        with st.sidebar.expander("🛠️ Hardware Diagnostic", expanded=False):
+            import sys
+            st.markdown(f"""
+            <div style="font-size:0.75rem; color:#94a3b8; line-height:1.4">
+                <b>Python:</b> {sys.version.split()[0]}<br>
+                <b>Torch:</b> {torch.__version__ if TORCH_AVAILABLE else 'N/A'}<br>
+                <b>CUDA:</b> {'🟢 Detected' if (TORCH_AVAILABLE and torch.cuda.is_available()) else '🔴 Not Found'}
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if not (TORCH_AVAILABLE and torch.cuda.is_available()):
+                st.info("💡 **GPU not detected.** Running on CPU may be slow.")
+                if st.button("🔧 Get Fix Command", key="diag_fix_btn"):
+                    st.code("pip uninstall torch torchvision -y\npip install torch torchvision --index-url https://download.pytorch.org/whl/cu121")
+                    st.caption("Run this in your terminal to force GPU support.")
+
     # ── TOP-LEVEL INITIALIZATION SLOT ────────────────────────────────────────
     # This slot is reserved for the landing message and AI progress bar
     top_init_slot = st.empty()

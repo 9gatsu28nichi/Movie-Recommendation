@@ -92,22 +92,24 @@ streamlit run src/app.py
 
 If the application displays **🖥️ CPU Mode** in the sidebar, or runs slowly, you need to install the CUDA-enabled version of PyTorch.
 
-### Manual Fix (Windows/NVIDIA)
+### 🛡️ Recommended Fix (Forced Index Override)
+Standard `pip install` commands can sometimes default to CPU versions even if `--extra-index-url` is provided. To force hardware acceleration:
+
 1. **Activate Environment**:
    ```powershell
    .\venv\Scripts\activate
    ```
-2. **Uninstall CPU Version**:
+2. **Nuclear Reset & Force CUDA**:
    ```powershell
-   pip uninstall torch torchvision -y
-   ```
-3. **Reinstall with CUDA 12.1 support**:
-   ```powershell
-   pip install torch torchvision --extra-index-url https://download.pytorch.org/whl/cu121
+   pip uninstall torch torchvision torchaudio -y
+   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
    ```
 
-> [!NOTE]
-> If you have an older NVIDIA GPU, replace `cu121` with `cu118` in the command above.
+> [!IMPORTANT]
+> **Python 3.14 Compatibility**: If you are using Python 3.14 (amd64) on Windows, pre-compiled CUDA wheels may not be available for the current Torch version. **It is highly recommended to use Python 3.11 or 3.12** for stable GPU acceleration.
+
+> [!TIP]
+> Use `python scripts/check_cuda.py` to identify exactly why your engine is defaulting to CPU.
 
 ---
 
