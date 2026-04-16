@@ -48,7 +48,7 @@ Follow these steps to set up the environment and launch the CineMatch platform:
 
 ### 1. Clone the repository
 ```bash
-git clone <repo-url>
+git clone https://github.com/9gatsu28nichi/Movie-Recommendation.git
 cd Movie-Recommendation
 ```
 
@@ -78,9 +78,13 @@ python install_data.py
 ```bash
 # This will open CineMatch in your default web browser
 streamlit run app.py
-# This will open CineMatch in .env your default web browser
-.venv\Scripts\streamlit.exe run app.py
 ```
+> [!IMPORTANT]
+> **First-Run AI Training**: Since large AI model files are ignored by Git to allow for custom builds, the first time you run the application, it will automatically encode the 436k+ movie fingerprints into a local `models/` folder.
+> - **With GPU**: Takes ~3-5 minutes.
+> - **With CPU**: Takes ~10-15 minutes.
+>
+> Once initialized, subsequent launches will be near-instantaneous.
 
 ### 🔧 Troubleshooting: AI Engine Initializing on CPU
 The CineMatch AI engine is designed to **use your GPU (CUDA) automatically** if available. If the application states it is loading the engine on the CPU, PyTorch could not detect a compatible GPU setup. This typically happens if the standard CPU version of PyTorch was installed, or if your Python version lacks pre-compiled GPU binaries.
