@@ -60,5 +60,38 @@ def install_data():
         print("💡 Tip: Ensure you have an active internet connection and 'kagglehub' installed.")
         sys.exit(1)
 
+def check_lfs():
+    """Checks if the model files are Git LFS pointers and attempts to pull them."""
+    print("\n🔍 Checking AI Model integrity (Git LFS)...")
+    models_dir = "models"
+    files_to_check = ["embeddings.pt", "processed_df.pkl"]
+    
+    needs_pull = False
+    for f in files_to_check:
+        path = os.path.join(models_dir, f)
+        if os.path.exists(path):
+            if os.path.getsize(path) < 1024:
+                with open(path, 'r') as file:
+                    if "version https://git-lfs.github.com" in file.read(100):
+                        print(f"⚠️  Detected LFS pointer for {f}")
+                        needs_pull = True
+    
+    if needs_pull:
+        print("📡 Large files detected as pointers. Attempting automated Git LFS pull...")
+        try:
+            import subprocess
+            result = subprocess.run(["git", "lfs", "pull"], capture_output=True, text=True)
+            if result.returncode == 0:
+                print("✅ Git LFS pull successful! Models are now hydrated.")
+            else:
+                print("❌ Git LFS pull failed.")
+                print("💡 Please install Git LFS (https://git-lfs.github.com) and run 'git lfs pull' manually.")
+        except FileNotFoundError:
+            print("❌ 'git' command not found.")
+            print("💡 Please install Git LFS and run 'git lfs pull' manually to download the 1GB+ model files.")
+    else:
+        print("✅ AI Models verified (Full binaries detected).")
+
 if __name__ == "__main__":
     install_data()
+    check_lfs()

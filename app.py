@@ -125,8 +125,18 @@ def clean_text(text):
 @st.cache_data(show_spinner=False)
 def load_and_process_data():
     if os.path.exists(PROCESSED_DF_PATH):
+        # Quick check for Git LFS pointers
+        if os.path.getsize(PROCESSED_DF_PATH) < 1024:
+            with open(PROCESSED_DF_PATH, 'r') as f:
+                if "version https://git-lfs.github.com" in f.read(100):
+                    st.error("⚠️ **Git LFS detected!** Your data files are currently just pointers. Please run `git lfs pull` in your terminal.")
+                    return None
+
         try:
-            return pd.read_pickle(PROCESSED_DF_PATH)
+            with st.status("📦 Loading Pre-processed Database...", expanded=False) as status:
+                df = pd.read_pickle(PROCESSED_DF_PATH)
+                status.update(label="✅ Database Loaded from Disk!", state="complete")
+                return df
         except Exception:
             pass
 
@@ -278,12 +288,21 @@ def compute_embeddings(_df_model):
     
     # Try to load from disk first
     if os.path.exists(EMBEDDINGS_PATH):
+        # Quick check for Git LFS pointers
+        if os.path.getsize(EMBEDDINGS_PATH) < 1024:
+            with open(EMBEDDINGS_PATH, 'r') as f:
+                if "version https://git-lfs.github.com" in f.read(100):
+                    st.error("⚠️ **Git LFS detected!** Your AI model files are currently just pointers. Please run `git lfs pull` to download them (approx. 630MB).")
+                    return None
+
         try:
             with st.status("📦 Loading Pre-trained AI Engine...", expanded=False) as status:
+                # Force map_location to ensure CPU-only users can load GPU-saved models
                 embeddings = torch.load(EMBEDDINGS_PATH, map_location=CUDA_DEVICE)
                 status.update(label="✅ AI Engine Loaded from Disk!", state="complete")
                 return embeddings
-        except Exception:
+        except Exception as e:
+            # Silent fallback if file is corrupted, but it will trigger re-training
             pass
 
     with st.container():
