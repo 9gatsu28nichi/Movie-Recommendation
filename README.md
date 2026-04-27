@@ -131,4 +131,9 @@ Standard `pip install` commands can sometimes default to CPU versions even if `-
 - **Analytics**: Pandas, NumPy, NLTK (WordNet Expansion).
 
 ---
+
+## Reference
+- https://www.kaggle.com/datasets/ggtejas/tmdb-imdb-merged-movies-dataset
+
+---
 *Developed by Jirathiwat Sun for ITCS227: Introduction to Data Science.*
